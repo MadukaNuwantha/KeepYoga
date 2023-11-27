@@ -18,5 +18,5 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 <p float="left">
-  <img src="assets/view-lesson-list-screen.png" width="250" />
+  <img src="assets/view-lesson-screen.png" width="250" />
 </p>
