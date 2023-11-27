@@ -261,7 +261,7 @@ class _ViewLessonsScreenState extends State<ViewLessonsScreen> {
                                           _controller.value.isPlaying ? _controller.pause() : _controller.play();
                                         },
                                         child: Icon(
-                                          _controller.value.isPlaying ? Icons.play_circle : Icons.pause_circle,
+                                          _controller.value.isPlaying ? Icons.pause_circle : Icons.play_circle,
                                           color: kPrimaryColor,
                                           size: 60,
                                         ),
