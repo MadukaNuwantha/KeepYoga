@@ -5,11 +5,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:keepyoga/constants.dart';
 import 'package:keepyoga/dialogs/custom_loading_dialog.dart';
+import 'package:keepyoga/models/lesson.dart';
 import 'package:keepyoga/services/secure_storage_service.dart';
 import 'package:keepyoga/widgets/snack_bars.dart';
 import 'package:http/http.dart' as http;
 
 class LessonService extends ChangeNotifier {
+  Lesson selectedLesson = Lesson();
+  List<Lesson> lessonList = [];
+
   Future<void> createLesson(
     BuildContext context,
     String title,

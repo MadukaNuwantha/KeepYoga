@@ -1,42 +1,40 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:keepyoga/constants.dart';
-import 'package:keepyoga/screens/landing_screen.dart';
+import 'package:keepyoga/services/authentication_service.dart';
 import 'package:keepyoga/size_config.dart';
+import 'package:provider/provider.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    SizeConfig().init(context);
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
     Timer(
       const Duration(seconds: 3),
       () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LandingScreen(),
-          ),
-          (route) => false,
-        );
+        Provider.of<AuthenticationService>(context, listen: false).autoLogin(context);
       },
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text(
-              'keepyoga',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
-                color: kDarkPrimaryColor,
-                fontSize: 60,
-                fontWeight: FontWeight.w600,
-              ),
+            child: Image.asset(
+              kLogoImage,
+              width: SizeConfig.blockSizeHorizontal * 90,
             ),
           )
         ],

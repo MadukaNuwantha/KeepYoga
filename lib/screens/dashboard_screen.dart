@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepyoga/constants.dart';
-import 'package:keepyoga/screens/view_yoga_lesson_screen.dart';
+import 'package:keepyoga/screens/view_lessons_screen.dart';
 import 'package:keepyoga/services/authentication_service.dart';
+import 'package:keepyoga/services/session_service.dart';
 import 'package:keepyoga/size_config.dart';
 import 'package:keepyoga/widgets/dashboard_body_type_tile.dart';
 import 'package:keepyoga/widgets/dashboard_session_tile.dart';
 import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -34,6 +35,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'image': kHipImage,
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        Provider.of<SessionService>(context, listen: false).getSessionList(context);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,20 +165,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ViewYogaLessonScreen(),
+                Consumer<SessionService>(
+                  builder: (context, sessionService, child) {
+                    sessionService.getSessionList(context);
+                    if (sessionService.sessionList.isNotEmpty) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: sessionService.sessionList.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            sessionService.selectedSession = sessionService.sessionList[index];
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ViewLessonsScreen(),
+                              ),
+                            );
+                          },
+                          child: DashboardSessionTile(
+                            title: sessionService.sessionList[index].title.toString(),
+                            noOfLessons: sessionService.sessionList[index].lessons!.length,
+                            instructor: sessionService.sessionList[index].instructor.toString(),
+                            category: sessionService.sessionList[index].category.toString(),
+                            imageUrl: sessionService.sessionList[index].imageUrl.toString(),
                           ),
-                        );
-                      },
-                      child: const DashboardSessionTile()),
+                        ),
+                      );
+                    } else {
+                      return const Text('No sessions available');
+                    }
+                  },
                 ),
               ],
             ),

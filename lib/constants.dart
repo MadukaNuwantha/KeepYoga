@@ -22,6 +22,7 @@ var kHorizontalPadding = 25.0;
 var kVerticalPadding = 25.0;
 
 // image path constants
+var kLogoImage = 'assets/logo.png';
 var kWelcomeImage = 'assets/welcome.png';
 var kLoginImage = 'assets/login.png';
 var kProfilePlaceholder = 'assets/profile-placeholder.png';
@@ -33,3 +34,4 @@ var kLessonOne = 'assets/lesson-one.png';
 var kLessonTwo = 'assets/lesson-two.png';
 var kLessonThree = 'assets/lesson-three.png';
 var kLessonFour = 'assets/lesson-four.png';
+var kLessonPlaceholder = 'assets/lesson-placeholder.png';

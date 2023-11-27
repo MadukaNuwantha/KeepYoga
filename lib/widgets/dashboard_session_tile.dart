@@ -3,7 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keepyoga/constants.dart';
 
 class DashboardSessionTile extends StatelessWidget {
-  const DashboardSessionTile({super.key});
+  final String imageUrl;
+  final String title;
+  final int noOfLessons;
+  final String instructor;
+  final String category;
+  const DashboardSessionTile({
+    super.key,
+    required this.title,
+    required this.noOfLessons,
+    required this.instructor,
+    required this.category,
+    required this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +47,15 @@ class DashboardSessionTile extends StatelessWidget {
                     height: 80,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        kUpperBodyImage,
+                      child: Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            kLessonOne,
+                            fit: BoxFit.cover,
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -46,7 +65,7 @@ class DashboardSessionTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Yoga Pilates',
+                          title,
                           style: GoogleFonts.inter(
                             color: kDarkSecondaryColor,
                             fontSize: 14,
@@ -55,7 +74,7 @@ class DashboardSessionTile extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          '5 lessons',
+                          '$noOfLessons lessons',
                           style: GoogleFonts.roboto(
                             color: kDarkAccentColor,
                             fontSize: 12,
@@ -65,12 +84,14 @@ class DashboardSessionTile extends StatelessWidget {
                         const SizedBox(height: 5),
                         Row(
                           children: [
-                            Text(
-                              'By Sarah William',
-                              style: GoogleFonts.dmSans(
-                                color: kDarkAccentColor,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w400,
+                            Expanded(
+                              child: Text(
+                                'By $instructor',
+                                style: GoogleFonts.dmSans(
+                                  color: kDarkAccentColor,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 8),
@@ -83,12 +104,14 @@ class DashboardSessionTile extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 8),
-                            Text(
-                              'All Level',
-                              style: GoogleFonts.dmSans(
-                                color: kDarkAccentColor,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w400,
+                            Expanded(
+                              child: Text(
+                                category,
+                                style: GoogleFonts.dmSans(
+                                  color: kDarkAccentColor,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 8),

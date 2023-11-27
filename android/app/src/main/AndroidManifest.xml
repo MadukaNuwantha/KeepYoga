@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="keepyoga"
+        android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
+        android:label="KeepYoga"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -30,4 +32,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

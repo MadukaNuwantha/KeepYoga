@@ -1,16 +1,22 @@
-# keepyoga
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# KeepYoga Application
+<p float="left">
+  <img src="assets/splash-screen.png" width="250" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+  <img src="assets/landing-screen.png" width="250" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<p float="left">
+  <img src="assets/login-screen.png" width="250" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+  <img src="assets/registration-screen.png" width="250" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<p float="left">
+  <img src="assets/dashboard-screen.png" width="250" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+  <img src="assets/view-session-screen.png" width="250" />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<p float="left">
+  <img src="assets/view-lesson-list-screen.png" width="250" />
+</p>

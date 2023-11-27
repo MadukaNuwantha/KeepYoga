@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keepyoga/constants.dart';
-import 'package:keepyoga/screens/landing_screen.dart';
+import 'package:keepyoga/screens/splash_screen.dart';
 import 'package:keepyoga/services/authentication_service.dart';
 import 'package:keepyoga/services/lesson_service.dart';
 import 'package:keepyoga/services/session_service.dart';
+import 'package:keepyoga/size_config.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class KeepYoga extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         systemNavigationBarColor: kLightSecondaryColor,
@@ -45,7 +47,7 @@ class KeepYoga extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: kLightSecondaryColor,
       ),
-      home: const LandingScreen(),
+      home: const SplashScreen(),
     );
   }
 }

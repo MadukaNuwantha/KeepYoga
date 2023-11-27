@@ -7,13 +7,32 @@ import 'package:flutter/material.dart';
 import 'package:keepyoga/constants.dart';
 import 'package:keepyoga/dialogs/custom_loading_dialog.dart';
 import 'package:keepyoga/screens/dashboard_screen.dart';
+import 'package:keepyoga/screens/landing_screen.dart';
 import 'package:keepyoga/screens/login_screen.dart';
 import 'package:keepyoga/services/secure_storage_service.dart';
 import 'package:keepyoga/widgets/snack_bars.dart';
 import 'package:http/http.dart' as http;
 
 class AuthenticationService extends ChangeNotifier {
-  void autoLogin(BuildContext context) {}
+  Future<void> autoLogin(BuildContext context) async {
+    if (await SecureStorageManager().getToken() != null) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const DashboardScreen(),
+        ),
+        (route) => false,
+      );
+    } else {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LandingScreen(),
+        ),
+        (route) => false,
+      );
+    }
+  }
 
   Future<void> login(
     BuildContext context,

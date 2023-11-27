@@ -5,11 +5,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:keepyoga/constants.dart';
 import 'package:keepyoga/dialogs/custom_loading_dialog.dart';
+import 'package:keepyoga/models/session.dart';
 import 'package:keepyoga/services/secure_storage_service.dart';
 import 'package:keepyoga/widgets/snack_bars.dart';
 import 'package:http/http.dart' as http;
 
 class SessionService extends ChangeNotifier {
+  List<Session> sessionList = [];
+  Session selectedSession = Session();
+
   Future<void> createSession(
     BuildContext context,
     String title,
@@ -59,13 +63,6 @@ class SessionService extends ChangeNotifier {
     BuildContext context,
   ) async {
     try {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const CustomLoadingDialog(
-          title: 'Retrieving Sessions',
-        ),
-      );
       final response = await http.get(
         Uri.parse('${baseUrl}sessions'),
         headers: {
@@ -74,20 +71,21 @@ class SessionService extends ChangeNotifier {
           'Authorization': 'Bearer ${await SecureStorageManager().getToken()}',
         },
       );
-      Navigator.pop(context);
       if (response.statusCode == 200) {
-        // TODO: success method implementation
+        sessionList = [];
+        final responseData = json.decode(response.body);
+        if (responseData.isNotEmpty) {
+          for (int i = 0; i < responseData.length; i++) {
+            sessionList.add(
+              Session.fromJson(responseData[i]),
+            );
+          }
+        }
         notifyListeners();
       } else {
-        if (json.decode(response.body)['message'] != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            errorSnackBar(json.decode(response.body)['message']),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            errorSnackBar('Could not complete retrieving sessions, please try again later.'),
-          );
-        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          errorSnackBar('Could not complete retrieving sessions, please try again later.'),
+        );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
